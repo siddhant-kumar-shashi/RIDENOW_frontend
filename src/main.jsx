@@ -5,7 +5,7 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import Usercontext from './context/Usercontext.jsx'
 import Captaincontext from './context/Captaincontext.jsx'
- import SocketProvider from './context/Socketcontext.jsx'
+import SocketProvider from './context/SocketContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
