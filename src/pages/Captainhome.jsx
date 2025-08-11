@@ -115,14 +115,14 @@ const Captainhome = () => {
         </div>
         
         <div className='h-1/2 p-4 '>
-           <CaptainDetails/>
+           <CaptainDetails  captain = {captain}/>
         </div>
       
-        <div ref={ridepoppanelRef} className='fixed z-10 top-0 px-3 py-10 bg-white w-full '>
+        <div ref={ridepoppanelRef} className='fixed z-10 top-0 px-3 bottom-0 py-10 bg-white w-full '>
            <Ridepop ride = {ride} setridepoppanel= {setridepoppanel} setconfirmRidePopupPanel={setconfirmRidePopupPanel} confirmRide = {confirmRide}/>
         </div>
       
-        <div ref={confirmRidePopupPanelref} className='fixed z-10 top-0  bottom-0  px-3 py-10 bg-white w-full '>
+        <div ref={confirmRidePopupPanelref} className='fixed z-10 top-0 bottom-0  px-3 py-10 bg-white w-full '>
            <Confirmridepopup setconfirmRidePopupPanel= {setconfirmRidePopupPanel} setridepoppanel = {setridepoppanel} ride = {ride} />
         </div>
       

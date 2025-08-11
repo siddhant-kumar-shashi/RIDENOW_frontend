@@ -1,12 +1,12 @@
 import React from 'react'
 
-const CaptainDetails = () => {
+const CaptainDetails = (props) => {
   return (
     <div>
         <div className='flex items-center'>
               <img className='w-16' src='https://t4.ftcdn.net/jpg/01/88/36/45/360_F_188364539_a9ymnQnUOIvio7pisoYdaX9yQTdZBuCb.jpg'></img>
               <div>
-                <h3 className='font-semi-bold'>Harkirat</h3>
+                <h3 className='font-semi-bold'>{props.captain.fullname.firstname}</h3>
                 <p className='text-gray-500'>Basic level</p>
               </div>
            </div>

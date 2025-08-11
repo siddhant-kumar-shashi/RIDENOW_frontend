@@ -2,6 +2,7 @@ import React from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {UsercontextData} from '../context/Usercontext'
+import { useState } from 'react'
 
 const Usersignup = () => {
   const [first_name , setfirst_name] = React.useState('')
@@ -9,7 +10,8 @@ const Usersignup = () => {
   const [email , setemail] = React.useState('')
   const [password , setpassword] = React.useState('')
   const [data , setdata] = React.useState({})
-   
+  const [error, setError] = useState('');
+  const [emailerror , setemailerror] = useState('')
    const navigate = useNavigate()
 
    const {user , setuser} = React.useContext(UsercontextData)
@@ -49,38 +51,58 @@ const Usersignup = () => {
   return (
     <div className='p-7 flex flex-col h-screen justify-between' >
     <div>
-      <img className='w-20 h-20 mb-5 ' src='https://logospng.org/download/uber/logo-uber-4096.png' />
+      <img className='w-40 h-30 mb-5 ' src='https://www.yoeleocanada.com/cdn/shop/files/RideNow_Japan_1360x_404e1fd4-9702-4551-b6f1-e3c94640207d_600x.webp?v=1704038949' />
       <form onSubmit={(e) => {
           submithandler(e)
       }}> 
           <h3 className='font-semibold text-xl mb-2' >What's your name</h3>
-          <div className=' flex gap-2'>
+      <div className='mb-5'>
+        <div className=' flex gap-2'>
           <input
             required
             value={first_name}
-            onChange={(e) => setfirst_name(e.target.value)}
-            className='placeholder:3xl  border bg-[#eeeeee] w-full mb-5 text:lg px-4 py-2 '
+            onChange={(e) => {
+              if(e.target.value.length >= 5  || e.target.value.length == 0 )
+                   setError('')
+              else  setError('Enter more than five characters')
+                   setfirst_name(e.target.value)
+            }}
+            className='placeholder:3xl  border bg-[#eeeeee] w-full  text:lg px-4 py-2 '
             type='name'
             placeholder='first_name'
           />
           <input
             required
             value={last_name}
-            onChange={(e) => setlast_name(e.target.value)}
-            className='placeholder:3xl  border bg-[#eeeeee] w-full mb-5 text:lg px-4 py-2 '
+            onChange={(e) => {setlast_name(e.target.value)}}
+            className='placeholder:3xl  border bg-[#eeeeee] w-full  text:lg px-4 py-2 '
             type='name'
             placeholder='last_name'
           />
           </div>
+            <p className='text-red-500 text-sm mt-1'>{error}</p>
+        </div>
+        
+         <div className='mb-8'>
           <h3 className='font-semibold text-xl mb-2' >What's your Email</h3>
-          <input
-            required
-            value={email}
-            onChange={(e) => setemail(e.target.value)}
-            className='placeholder:3xl  border bg-[#eeeeee] w-full mb-8 text-lg px-4 py-2'
-            type='email'
-            placeholder='example@email.com'
-          />
+              <input
+                required
+                value={email}
+                onChange={(e) => {
+                  if(e.target.value.length >= 9 || e.target.value.length == 0 )
+                       setemailerror('')  
+                  else setemailerror('Enter more than nine characters')  
+                      setemail(e.target.value)
+                 }     
+                }
+                    
+                className='placeholder:3xl  border bg-[#eeeeee] w-full  text-lg px-4 py-2'
+                type='email'
+                placeholder='example@email.com'
+              />
+              <p className='text-red-500 text-sm mt-1'>{emailerror}</p>
+        </div>
+
           <h3 className='font-semibold text-xl mb-2' >Enter password</h3>
           <input
             required

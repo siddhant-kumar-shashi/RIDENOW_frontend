@@ -13,7 +13,7 @@ const Ridepop = (props) => {
                 <img className='rounded-full w-10 h-12 object-cover' src='https://th.bing.com/th/id/OIP.Wwkj6mz7ZUkF8pBMY7UvIwHaHa?w=204&h=204&c=7&r=0&o=5&dpr=1.3&pid=1.7'/>
                 <h3 className='text-lg font-medium'>{props.ride?.user.fullname.firstname + " " + props.ride?.user.fullname.lastname }</h3>
             </div>
-            <h5 className='text-lg font-semibold '>2.2KM</h5>
+            <h5 className='text-lg font-semibold '>{props.ride.distance}</h5>
         </div>
         <div className=' flex justify-center flex-col items-center rounded-full  '>
           
@@ -28,15 +28,15 @@ const Ridepop = (props) => {
                <div className='flex items-center justify-start gap-5 p-3 border-b-2'>
               <h2 className='bg-gray-200 rounded-full p-2 h-8 w-8 flex items-center '><i className="ri-rectangle-fill"></i></h2>
               <div>
-                 <h3 className='font-bold text-xl'>Third Wave Coffee</h3>
-                  <p className='text-sm -mt-1'>{props.ride?.destination}</p>
+                 <h3 className='font-bold text-xl'>Source</h3>
+                  <p className='text-sm -mt-1'>{props.ride?.pickup}</p>
               </div>
                  </div>
                 <div className='flex items-center justify-start gap-5 p-3 border-b-2'>
               <h2 className='bg-gray-200 rounded-full p-2 h-8 w-8 flex items-center'><i className="ri-wallet-fill"></i></h2>
               <div>
                  <h3 className='font-bold text-xl'>₹{props.ride?.fare}</h3>
-                  <p className='text-sm -mt-1'>chamundi hill, Bengaluru, karanataka</p>
+                  <p className='text-sm -mt-1'>{props.ride?.destination}</p>
               </div>
                  </div>
             </div>

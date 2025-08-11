@@ -42,7 +42,7 @@ const Home1 = () => {
     const {  user  } = useContext(UsercontextData)
 
     useEffect(() => {
-          console.log("inside home " , user._id)
+          console.log("inside home--> " , user._id)
           socket.emit('join' , {
             userId: user._id ,
             userType: 'user'
@@ -64,7 +64,7 @@ const Home1 = () => {
       opacity:0
     })
   } else{
-    console.log(panelopen)
+   // console.log(panelopen)
     gsap.to(panelref.current,{
       height:'0%'
     })
@@ -143,6 +143,7 @@ const Home1 = () => {
          Authorization: `Bearer ${localStorage.getItem('token')}`
       }
    })
+   console.log('Inside home1-->' , response.data)
     setfare(response.data)
     setvehiclepanel(true)
     setpanelopen(false)
@@ -193,7 +194,7 @@ const Home1 = () => {
               }} className='absolute top-1 left-3 text-xl'> 
                  <i className="ri-arrow-down-wide-line"></i> 
               </h5>
-            <h3 className='font-semibold text-xl' >Find a trip</h3>
+            <h3 className='font-semibold text-xl' >Find a trip</h3> 
              <form  onSubmit={(e) => {
                   submithadler(e)
                 }} >
@@ -205,19 +206,17 @@ const Home1 = () => {
                   }}
                    value = {pickup}
                    onChange={async(e) => {
-                    console.log('Inside onchange')
+             //       console.log('Inside onchange')
                     setpickup(e.target.value)
                 try{
-                    console.log('Inside try1')
+                 //   console.log('Inside try1')
                    const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/map/get-suggestion`, {
                        params: { input: e.target.value },
                        headers: {
                            Authorization: `Bearer ${localStorage.getItem('token')}`
                         }
                     });
-                   console.log('Inside try2')
-                   console.log(response.status)
-                   console.log(response)
+              
                    if(response.status == 200 ){
                        setsuggestion(response.data) 
                    }

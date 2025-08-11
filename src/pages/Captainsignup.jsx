@@ -2,6 +2,7 @@ import React , {useContext} from 'react'
 import { Link , useNavigate  } from 'react-router-dom'
 import axios from 'axios'
 import { Captaindatacontext } from '../context/Captaincontext'
+import { useState } from 'react'
 
 const Captainsignup = () => {
   const [first_name , setfirst_name] = React.useState('')
@@ -12,6 +13,8 @@ const Captainsignup = () => {
      const [vehicleplate , setvehicleplate] = React.useState('')
      const [vehiclecolor , setvehiclecolor] = React.useState('')
      const [vehicletype , setvehicletype] = React.useState('')
+     const [error , setError] = useState('')
+     const [emailerror , setemailerror] = useState('')
      const navigate = useNavigate()
      const {captain , setcaptain} = React.useContext(Captaindatacontext)
   
@@ -33,14 +36,14 @@ const Captainsignup = () => {
             }
         }
     try{
-        console.log('hello inside captainsignup')
+    //    console.log('hello inside captainsignup')
         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captain/register` , captaindata)
-        console.log('mr india')
+   //     console.log('mr india')
         if(response.status == 200 ){
           const data = response.data ;
           localStorage.setItem('token' , data.token)
           setcaptain(data.captain)
-          console.log(data)
+   //       console.log(data)
           navigate('/captainhome')
         }    
         setfirst_name('')
@@ -61,17 +64,23 @@ const Captainsignup = () => {
   return (
     <div className='p-7 flex flex-col h-screen justify-between' >
     <div>
-      <img className='w-20 h-20 mb-5 ' src='https://ih1.redbubble.net/image.5007880594.5940/st,small,507x507-pad,600x600,f8f8f8.jpg' />
+      <img className='w-40 h-30 mb-5 ' src='https://www.yoeleocanada.com/cdn/shop/files/RideNow_Japan_1360x_404e1fd4-9702-4551-b6f1-e3c94640207d_600x.webp?v=1704038949' />
       <form onSubmit={(e) => {
           submithandler(e)
       }}> 
           <h3 className='font-semibold text-xl mb-2 w-full' >What's your name</h3>
+        <div className='mb-5'>
           <div className=' flex gap-2'>
           <input
             required
             value={first_name}
-            onChange={(e) => setfirst_name(e.target.value)}
-            className='placeholder:3xl  border bg-[#eeeeee] w-full mb-5 text:lg px-4 py-2 '
+            onChange={(e) => {
+              if(e.target.value.length >= 5  || e.target.value.length == 0 )
+                   setError('')
+              else  setError('Enter more than five characters')
+                   setfirst_name(e.target.value)
+            }}
+            className='placeholder:3xl  border bg-[#eeeeee] w-full  text:lg px-4 py-2 '
             type='name'
             placeholder='first_name'
           />
@@ -79,20 +88,34 @@ const Captainsignup = () => {
             required
             value={last_name}
             onChange={(e) => setlast_name(e.target.value)}
-            className='placeholder:3xl  border bg-[#eeeeee] w-full mb-5 text:lg px-4 py-2 '
+            className='placeholder:3xl  border bg-[#eeeeee] w-full  text:lg px-4 py-2 '
             type='name'
             placeholder='last_name'
           />
           </div>
+           <p className='text-red-500 text-sm mt-1'>{error}</p>
+           </div>
+          
+         <div className='mb-8'>
           <h3 className='font-semibold text-xl mb-2' >What's your Email</h3>
-          <input
-            required
-            value={email}
-            onChange={(e) => setemail(e.target.value)}
-            className='placeholder:3xl  border bg-[#eeeeee] w-full mb-8 text-lg px-4 py-2'
-            type='email'
-            placeholder='example@email.com'
-          />
+              <input
+                required
+                value={email}
+                onChange={(e) => {
+                  if(e.target.value.length >= 9 || e.target.value.length == 0 )
+                       setemailerror('')  
+                  else setemailerror('Enter more than nine characters')  
+                      setemail(e.target.value)
+                 }     
+                }
+                    
+                className='placeholder:3xl  border bg-[#eeeeee] w-full  text-lg px-4 py-2'
+                type='email'
+                placeholder='example@email.com'
+              />
+              <p className='text-red-500 text-sm mt-1'>{emailerror}</p>
+        </div>
+      
           <h3 className='font-semibold text-xl mb-2' >Enter password</h3>
           <input
             required
